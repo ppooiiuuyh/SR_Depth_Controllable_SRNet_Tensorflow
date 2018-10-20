@@ -2,6 +2,9 @@
 # Depth Conrollable SRNet-Tensorflow
 Tensorflow implemetation of depth conrllable SRNet 
 
+We propose a network which can controll the depth of layer without any changes of weights during runtime.
+This network can be useful to adatp speed/performance trade-off in stochstic realtime super resolution system such like video streaming for HR TV.
+
 Detail describtion will be added after paper acceptance or uploading to arxiv.
 
 
