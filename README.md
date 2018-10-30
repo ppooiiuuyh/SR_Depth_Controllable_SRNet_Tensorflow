@@ -10,7 +10,7 @@ Detail describtion will be added after paper acceptance or uploading to arxiv.
 
 </p>
 <p align="center">
-<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/model.jpg" width="800">
+<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/model.png" width="800">
 </p>
 
 
@@ -62,26 +62,26 @@ usage: main.py [-h] [--exp_tag EXP_TAG] [--gpu GPU] [--epoch EPOCH]
 
 </p>
 <p align="center">
-<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/result.jpg" width="800">
+<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/result.png" width="800">
 </p>
 
 
 
 </p>
 <p align="center">
-<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/result2.jpg" width="800">
+<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/result2.png" width="800">
 </p>
 
 
 </p>
 <p align="center">
-<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/result2.jpg" width="800">
+<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/result2.png" width="800">
 </p>
 
 
 </p>
 <p align="center">
-<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/tradeff.jpg" width="800">
+<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/tradeff.png" width="800">
 </p>
 
 ## References
