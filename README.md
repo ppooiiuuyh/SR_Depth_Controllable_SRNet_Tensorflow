@@ -81,7 +81,7 @@ usage: main.py [-h] [--exp_tag EXP_TAG] [--gpu GPU] [--epoch EPOCH]
 
 </p>
 <p align="center">
-<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/tradeff.png" width="800">
+<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/tradeoff.png" width="800">
 </p>
 
 ## References
