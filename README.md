@@ -8,6 +8,11 @@ This network can be useful to adatp speed/performance trade-off in stochstic rea
 Detail describtion will be added after paper acceptance or uploading to arxiv.
 
 
+</p>
+<p align="center">
+<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/model.jpg" width="800">
+</p>
+
 
 ## Prerequisites
  * python 3.x
@@ -55,7 +60,29 @@ usage: main.py [-h] [--exp_tag EXP_TAG] [--gpu GPU] [--epoch EPOCH]
 <img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/DASR%20test.png" width="800">
 </p>
 
+</p>
+<p align="center">
+<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/result.jpg" width="800">
+</p>
 
+
+
+</p>
+<p align="center">
+<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/result2.jpg" width="800">
+</p>
+
+
+</p>
+<p align="center">
+<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/result2.jpg" width="800">
+</p>
+
+
+</p>
+<p align="center">
+<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/tradeff.jpg" width="800">
+</p>
 
 ## References
 * Related works
