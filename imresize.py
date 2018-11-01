@@ -1,5 +1,6 @@
 import numpy as np
 from math import ceil, floor
+import cv2
 
 def deriveSizeFromScale(img_shape, scale):
     output_shape = []
@@ -90,6 +91,7 @@ def resizeAlongDim(A, dim, weights, indices, mode="vec"):
         out = imresizevec(A, weights, indices, dim)
     return out
 
+'''
 def imresize(I, scalar_scale=None, output_shape=None, mode="vec"):
     kernel = cubic
     kernel_width = 4.0
@@ -123,6 +125,15 @@ def imresize(I, scalar_scale=None, output_shape=None, mode="vec"):
     if flag2D:
         B = np.squeeze(B, axis=2)
     return B
+'''
+
+def imresize(I, scalar_scale,output_shape=None,  interpolation= cv2.INTER_CUBIC):
+    if scalar_scale < 1:
+        I_ = cv2.resize(I,None, fx=scalar_scale, fy=scalar_scale,interpolation = cv2.INTER_AREA)
+    else :
+        I_ = cv2.resize(I, None, fx=scalar_scale, fy=scalar_scale, interpolation=interpolation)
+    return I_
+
 
 def convertDouble2Byte(I):
     B = np.clip(I, 0.0, 1.0)

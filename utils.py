@@ -11,16 +11,22 @@ import numpy as np
 import sys
 from imresize import *
 import glob, os, re
-
+import cv2
+from tqdm import tqdm
+import tensorflow as tf
 
 def rgb2ycbcr(im):
+    '''
     xform = np.array([[.299, .587, .114], [-.1687, -.3313, .5], [.5, -.4187, -.0813]])
     ycbcr = im.dot(xform.T)
     ycbcr[:, :, [1, 2]] += 128
     return np.uint8(ycbcr)
+    '''
+    return cv2.cvtColor(im,cv2.COLOR_RGB2YCR_CB)[:,:,[0,2,1]]
 
 
 def ycbcr2rgb(im):
+    '''
     xform = np.array([[1, 0, 1.402], [1, -0.34414, -.71414], [1, 1.772, 0]])
     rgb = im.astype(np.float)
     rgb[:, :, [1, 2]] -= 128
@@ -28,17 +34,20 @@ def ycbcr2rgb(im):
     np.putmask(rgb, rgb > 255, 255)
     np.putmask(rgb, rgb < 0, 0)
     return np.uint8(rgb)
+    '''
 
+
+    temp =  cv2.cvtColor(im[:,:,[0,2,1]], cv2.COLOR_YCR_CB2RGB)
+    return temp
 
 def augumentation(img_sequence):
     augmented_sequence = []
     for img in img_sequence:
-        for _ in range(4):
+        for _ in range(3):
             rot_img = np.rot90(img)
             augmented_sequence.append(rot_img)
 
         flipped_img = np.fliplr(img)
-
         for _ in range(4):
             rot_flipped_img = np.rot90(flipped_img)
             augmented_sequence.append(rot_flipped_img)
@@ -155,9 +164,9 @@ def input_setup_demo(args, mode):
     # ----------------------------------------------------------------
     if mode == "train":
         data = prepare_data( args=args, mode=mode)
-        for i in range(len(data)):
-            input_, label_ = preprocess(data[i], args)  # normalized full-size image
-            h, w, _ = input_.shape  # only for R,G,B image
+        for i in tqdm(range(len(data))):
+            input_, label_ = preprocess(data[i], args,args.crop)  # normalized full-size image
+            h, w, _ = input_.shape
 
             for x in range(0, h - args.patch_size + 1, args.patch_size):
                 for y in range(0, w - args.patch_size + 1, args.patch_size):
@@ -195,20 +204,43 @@ def prepare_data(args, mode):
     return data
 
 
-def preprocess(path, args):
+
+
+
+
+def preprocess(path, args, crop = False):
     image = plt.imread(path)
     if len(image.shape) < 3:
         image = np.stack([image] * 3, axis=-1)
+    image = rgb2ycbcr(image)
 
+    if np.max(image) > 1: image = (image / 255).astype(np.float32)
+
+
+    if crop: image = image[image.shape[0]//2-125:image.shape[0]//2+125,image.shape[1]//2-125:image.shape[1]//2+125]
     image_croped = modcrop(image, args.scale)
-    if len(image.shape) < 3:
-        image_croped = np.expand_dims(image_croped, axis=-1)
-    image_croped = image_croped / 255
+
+
 
     if args.mode == "train" or args.mode == "test":
         label_ = image_croped
-        input_ = imresize(image_croped, 1 / args.scale)
-        input_ = imresize(input_, args.scale)
+        #input_ = imresize(image_croped, 1 / args.scale)
+        #input_ = imresize(input_, args.scale)
+
+        #:cv2.resize(image_croped,None,fx=1 / args.scale, fy=1 / args.scale, interpolation = cv2.INTER_CUBIC)
+        #input_ = cv2.resize(input_,None,fx=args.scale, fy=args.scale, interpolation = cv2.INTER_CUBIC)
+        #input_ = cv2.resize(input_,None,fx=args.scale, fy=args.scale, interpolation = cv2.INTER_CUBIC)
+
+        input_ = imresize(image_croped, 1 / args.scale,output_shape=None)
+        input_ = imresize(input_, args.scale,output_shape=None)
+
+        '''
+        image_croped = np.expand_dims(image_croped,axis=0)
+        input_ = tf.image.resize_bicubic(image_croped,[np.shape(image_croped)[1]//2, np.shape(image_croped)[2]//2],align_corners=True).eval()
+        input_ = tf.image.resize_bicubic(input_,[np.shape(image_croped)[1], np.shape(image_croped)[2]],align_corners=True).eval()
+        input_ = input_[0]
+        '''
+
         return input_, label_
 
 

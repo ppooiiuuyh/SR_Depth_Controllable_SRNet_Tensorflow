@@ -20,6 +20,7 @@ Detail describtion will be added after paper acceptance or uploading to arxiv.
  * Scipy version > 0.18 ('mode' option from scipy.misc.imread function)
  * matplotlib
  * argparse
+ * opencv
 
 ## Properties (what's different from reference code)
  * This code requires Tensorflow. This code was fully implemented based on Python 3
@@ -48,11 +49,11 @@ usage: main.py [-h] [--exp_tag EXP_TAG] [--gpu GPU] [--epoch EPOCH]
 =============================================================================
 ```
 
- * For training, `python3 main.py --mode train --type demo --check_itr 0` [set 0 for training from scratch, -1 for latest]
- * For testing, `python 3main.py --mode test --type demo`
- * For inference with cumstom dataset, `python3 main.py --mode inference --infer_imgpath 3.bmp` [result will be generated in ./result/inference]
+ * For training, `python3 main.py --mode train --check_itr 0` [set 0 for training from scratch, -1 for latest]
+ * For testing, `python 3 main.py --mode test --check_itr 40`
+ * For inference with cumstom dataset, `python3 main.py --mode inference --infer_imgpath monarch.bmp` [result will be generated in ./result/inference]
  * For running tensorboard, `tensorboard --logdir=./board` then access localhost:6006 with your browser
-
+ * For demo `python 3 demo2.py`
 ## Result
 
 </p>
@@ -83,6 +84,13 @@ usage: main.py [-h] [--exp_tag EXP_TAG] [--gpu GPU] [--epoch EPOCH]
 <p align="center">
 <img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/tradeoff.png" width="800">
 </p>
+
+
+</p>
+<p align="center">
+<img src="https://raw.githubusercontent.com/ppooiiuuyh/SR_Depth_Controllable_SRNet_Tensorflow/master/asset/demo.png" width="800">
+</p>
+
 
 ## References
 * Related works

@@ -18,38 +18,39 @@ if __name__ == '__main__':
 # [add parser]
 # =======================================================
     parser = argparse.ArgumentParser()
-    parser.add_argument("--exp_tag", type=str, default="Depth Adaptable SR net demo")
+    parser.add_argument("--exp_tag", type=str, default="Depth Adaptable SR net demo DIV2K_centercroped, interarea, branch2")
     parser.add_argument("--gpu", type=int, default=0) # -1 for CPU
     parser.add_argument("--epoch", type=int, default=80)
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--patch_size", type=int, default=41)
-    parser.add_argument("--base_lr", type=float, default=1e-4)
+    parser.add_argument("--base_lr", type=float, default=1e-5)
     parser.add_argument("--lr_min", type=float, default=1e-6)
     parser.add_argument("--num_additional_inputlayer", type=int, default=0)
-    parser.add_argument("--num_hiddens",type=int, default=6)
+    parser.add_argument("--num_hiddens",type=int, default=7)
     parser.add_argument("--num_innerlayer", type=int, default=3)
     parser.add_argument("--num_additional_branchlayer", type=int, default=0)
     parser.add_argument("--lr_decay_rate", type=float, default=1e-1)
-    parser.add_argument("--lr_step_size", type=int, default=20) #9999 for no decay
+    parser.add_argument("--lr_step_size", type=int, default=30) #9999 for no decay
     parser.add_argument("--scale", type=int, default=3) #
     parser.add_argument("--checkpoint_dir", default="checkpoint")
-    parser.add_argument("--cpkt_itr", default=32)  # -1 for latest, set 0 for training from scratch
+    parser.add_argument("--cpkt_itr", default=40)  # -1 for latest, set 0 for training from scratch
     parser.add_argument("--save_period", type=int, default=1)
     parser.add_argument("--result_dir", default="result")
     parser.add_argument("--train_subdir", default="291")
+    parser.add_argument("--crop", default=True)
     parser.add_argument("--test_subdir", default="Set5")
     parser.add_argument("--infer_subdir", default="Custom")
-    parser.add_argument("--infer_imgpath", default="webtoon1.png") #monarch.bmp
+    parser.add_argument("--infer_imgpath", default="monarch.bmp") #monarch.bmp #webtoon1.png #ppt3.bmp #lenna.bmp
     parser.add_argument("--type", default="demo", choices=["eval", "demo"]) #eval type uses .m data upscaled with matlab bicubic mathod on only Y chaanel, demo type uses raw images on RGB
-    parser.add_argument("--c_dim", type=int, default=3)  # 3 for RGB, 1 for Y chaanel of YCbCr
-    parser.add_argument("--mode", default="test_plot", choices=["train", "test", "inference", "test_plot"])
-    parser.add_argument("--train_depth", type=int, default=0) #-1 for pretrain
+    parser.add_argument("--c_dim", type=int, default=-1)  # 3 for RGB, 1 for Y chaanel of YCbCr
+    parser.add_argument("--mode", default="test", choices=["train", "test", "inference", "test_plot"])
+    parser.add_argument("--train_depth", type=int, default=-1) #-1 for pretrain
     parser.add_argument("--save_extension", default=".jpg", choices=["jpg", "png"])
 
     print("=====================================================================")
     args = parser.parse_args()
     if args.type == "eval" : args.c_dim = 1 ; args.train_subdir += "_M" ; args.test_subdir += "_M"
-    elif args.type == "demo" : args.c_dim = 3 ;
+    elif args.type == "demo" : args.c_dim = 1 ;
     print("Eaxperiment tag : " + args.exp_tag)
     pp.pprint(args)
     print("=====================================================================")
@@ -69,7 +70,7 @@ if __name__ == '__main__':
     os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
     os.environ["CUDA_VISIBLE_DEVICES"]=str(args.gpu)
     config = tf.ConfigProto()
-    if args.gpu == -1: config.device_count = {'GPU': 0}
+    #if args.gpu == -1: config.device_count = {'GPU': 0}
     config.gpu_options.per_process_gpu_memory_fraction = 0.9
     #config.operation_timeout_in_ms=10000
 
@@ -97,8 +98,7 @@ if __name__ == '__main__':
             #load image
             image_path = os.path.join(os.getcwd(),"test", args.infer_subdir, args.infer_imgpath)
             infer_image = plt.imread(image_path)
-            if np.max(infer_image) > 1: infer_image = infer_image / 255
-            infer_image = imresize(infer_image, scalar_scale=1, output_shape=None, mode="vec")
+            infer_image = imresize(infer_image, scalar_scale=1, output_shape=None)
 
             srimg = vdsr.inference(infer_image, depth = args.train_depth, scale = args.scale)
             plt.imshow(srimg)
@@ -108,8 +108,8 @@ if __name__ == '__main__':
             #load image
             image_path = os.path.join(os.getcwd(),"test", args.infer_subdir, args.infer_imgpath)
             infer_image = plt.imread(image_path)
-            if np.max(infer_image) > 1: infer_image = infer_image / 255
-            infer_image = imresize(infer_image, scalar_scale=1, output_shape=None, mode="vec")
+            #infer_image= infer_image[100:200,100:200]
+            infer_image = imresize(infer_image, scalar_scale=1, output_shape=None)
 
             vdsr.test_plot(infer_image)
 
