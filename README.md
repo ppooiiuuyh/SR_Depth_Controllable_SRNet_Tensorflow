@@ -99,6 +99,7 @@ usage: main.py [-h] [--exp_tag EXP_TAG] [--gpu GPU] [--epoch EPOCH]
 ## ToDo
 * link pretrained models [done]
 * link dataset [done]
+* add describtion (not yet, please refer ppt in asset dir)
 
 ## Author
 Dohyun Kim
