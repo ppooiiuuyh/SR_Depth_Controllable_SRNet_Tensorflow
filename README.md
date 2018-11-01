@@ -97,8 +97,8 @@ usage: main.py [-h] [--exp_tag EXP_TAG] [--gpu GPU] [--epoch EPOCH]
 * [Model adaptation]() : Low-Complexity Online Model Selection with Lyapunov Control for Reward Maximization in Stabilized Real-Time Deep Learning Platforms (Dohyun Kim, Joongheon Kim, Joonseok Kwon, SMC 2018)
 
 ## ToDo
-* link pretrained models
-* link dataset
+* link pretrained models [done]
+* link dataset [done]
 
 ## Author
 Dohyun Kim
